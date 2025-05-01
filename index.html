@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>С годовщиной!</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff0f5;
+      color: #333;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #d14f7b;
+    }
+
+    .letter {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 800px;
+      margin: 40px auto;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      text-align: left;
+    }
+
+    .item.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .item img {
+      width: 45%;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .caption {
+      width: 55%;
+      text-align: center;
+    }
+
+    .caption p {
+      margin: 5px 0;
+      font-size: 1.1em;
+      line-height: 1.5em;
+    }
+
+    /* Анимация сердечек */
+    #heart-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: floatHeart 5s linear forwards;
+      opacity: 0.9;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    /* Стиль для игры */
+    .quiz-container {
+      margin-top: 40px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 40px auto;
+    }
+
+    .question {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    .answer-btn {
+      display: block;
+      background-color: #d14f7b;
+      color: white;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      font-size: 1.2em;
+      cursor: pointer;
+      width: 100%;
+      border: none;
+    }
+
+    .answer-btn:hover {
+      background-color: #bb3d67;
+    }
+  </style>
+</head>
+<body>
+<audio autoplay loop>
+  <source src="file:///C:/Users/Динара/Desktop/годик/audio/a1.mp3" type="audio/mp3">
+  Ваш браузер не поддерживает тег audio.
+</audio>
+
+  <h1>С годовщиной, любимый!</h1>
+
+  <div class="letter">
+    <p>Ты — моё счастье, опора и любовь.</p>
+    <p>Спасибо за каждый день рядом со мной. Я люблю тебя и всегда буду рядом с тобой &lt;3</p>
+  </div>
+
+  <h1>Давай вспомним, как это было?</h1>
+
+  <div class="gallery">
+    <div class="item reverse">
+      <img src="2.jpg" alt="Фото 1">
+      <div class="caption">
+        <p>Никогда не забуду твои слова, что ты с первых сообщений понял, что у нас что-то получится.</p>
+        <p>Это начало нашей легендарной истории.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="1.jpg" alt="Фото 2">
+      <div class="caption">
+        <p>Это наше первое совместное фото.</p>
+        <p>Помнишь, как нас поженили маленькие девочки?</p>
+      </div>
+    </div>
+
+    <div class="item reverse">
+      <img src="3.jpg" alt="Фото 3">
+      <div class="caption">
+        <p>Без комментариев.</p>
+        <p>Просто птицы.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="heart-container"></div>
+  <h1> Поиграем? </h1>
+  <div class="quiz-container">
+    <div class="question">Что я в тебе больше всего люблю?</div>
+    <button class="answer-btn" onclick="checkAnswer('1')">Твою заботу</button>
+    <button class="answer-btn" onclick="checkAnswer('2')">Твой юмор</button>
+    <button class="answer-btn" onclick="checkAnswer('3')">Твою доброту</button>
+    <button class="answer-btn" onclick="checkAnswer('4')">Твою уверенность</button>
+    <button class="answer-btn" onclick="checkAnswer('5')">Твою никиткость</button>
+    <button class="answer-btn" onclick="checkAnswer('6')">Бублика ฅ^>⩊<^ ฅ</button>
+
+    <div id="quiz-result" style="margin-top: 20px; font-size: 1.2em;"></div>
+  </div>
+
+  <script>
+    const container = document.getElementById('heart-container');
+    const hearts = ['💖','💕','💗','💓','💞'];
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      
+      const side = Math.random() > 0.5 ? 'left' : 'right';
+      const offset = Math.random() * 50 + 10;
+      
+      heart.style[side] = offset + 'px';
+      heart.style.bottom = '0';
+
+      container.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 300);
+
+    function checkAnswer(selected) {
+      let resultText = '';
+      if (selected === '1') {
+        resultText = 'Правильно! Я обожаю твою заботу';
+      } else if (selected === '2') {
+        resultText = 'Твой юмор - просто нечто. Я всегда ухахатываюсь с твоих шуток';
+      } else if (selected === '3') {
+        resultText = 'Твоя доброта — это то, что меня всегда восхищает';
+      } else if (selected === '4') {
+        resultText = 'Ты прав! Я влюблена в твою уверенность';
+      } else if (selected === '5') {
+        resultText = 'Я обожаю твою никиткость';
+      } else if (selected === '6') {
+        resultText = 'Ты меня раскусил)))';
+      } else {
+        resultText = 'Попробуй еще раз!';
+      }
+      document.getElementById('quiz-result').innerText = resultText;
+    }
+  </script>
+
+</body>
+</html>
+
